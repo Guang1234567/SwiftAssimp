@@ -15,7 +15,7 @@ enum Resource: String {
     case busterDrone_gltf = "https://gitlab.com/ctreffs/assets/raw/master/models/buster_drone/scene.gltf"
     case airplane_usdz = "https://developer.apple.com/augmented-reality/quick-look/models/biplane/toy_biplane.usdz"
     case boxTextured_gltf = "https://raw.githubusercontent.com/assimp/assimp/master/test/models/glTF2/BoxTextured-glTF/BoxTextured.gltf"
-    case cubeDiffuseTextured_3ds = "https://github.com/assimp/assimp/raw/master/test/models/3DS/cube_with_diffuse_texture.3DS"
+    case cubeDiffuseTextured_3ds = "https://raw.githubusercontent.com/assimp/assimp/master/test/models/3DS/cube_with_diffuse_texture.3DS"
 
     private static let fm = FileManager.default
 

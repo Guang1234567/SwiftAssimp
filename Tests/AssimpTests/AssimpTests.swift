@@ -5,8 +5,8 @@ import CAssimp
 final class AssimpTests: XCTestCase {
 
     func testVersion() {
-        XCTAssertEqual(aiGetVersionMajor(), 4)
-        XCTAssertEqual(aiGetVersionMinor(), 1)
+        XCTAssertEqual(aiGetVersionMajor(), 5)
+        XCTAssertEqual(aiGetVersionMinor(), 0)
         XCTAssertEqual(aiGetVersionRevision(), 0)
     }
 

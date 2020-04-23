@@ -31,8 +31,12 @@ public struct AiMaterial {
         }
 
         let properties = (0..<numProperties)
-            .compactMap { material.mProperties[$0] }
-            .map { AiMaterialProperty($0.pointee) }
+                .compactMap {
+                    material.mProperties[$0]
+                }
+                .map {
+                    AiMaterialProperty($0.pointee)
+                }
 
         assert(properties.count == numProperties)
 
@@ -75,10 +79,10 @@ public struct AiMaterial {
         let ptr = UnsafeMutablePointer<UnsafePointer<aiMaterialProperty>?>.allocate(capacity: MemoryLayout<aiMaterialProperty>.stride)
 
         let result = aiGetMaterialProperty(&material,
-                                           key,
-                                           type,
-                                           index,
-                                           ptr)
+                key,
+                type,
+                index,
+                ptr)
 
         assert(result == aiReturn_SUCCESS)
 
@@ -104,24 +108,50 @@ public struct AiMaterial {
 
         return ints
     }
+
+    public mutating func getTextureCount(type: AiTextureType) -> UInt32 {
+        return aiGetMaterialTextureCount(&material, aiTextureType(rawValue: type.rawValue))
+    }
+
+    public mutating func getTexture(type: AiTextureType, index: UInt32) -> String? {
+        let pAiString = UnsafeMutablePointer<aiString>.allocate(capacity: 1)
+        defer {
+            pAiString.deinitialize(count: 1)
+            pAiString.deallocate()
+        }
+        pAiString.initialize(to: aiString())
+        let result = aiGetMaterialTexture(
+                &material,
+                aiTextureType(rawValue: type.rawValue),
+                index,
+                pAiString,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil,
+                nil)
+        assert(result == aiReturn_SUCCESS)
+        return String(aiString: pAiString.pointee)
+    }
 }
 
 extension AiMaterial: CustomDebugStringConvertible {
     public var debugDescription: String {
         return """
-        <AiMaterial
-        - numProperties: \(numProperties)
-        - numAllocated: \(numAllocated)
-        - properties: \(properties.debugDescription)
-        >
-        """
+               <AiMaterial
+               - numProperties: \(numProperties)
+               - numAllocated: \(numAllocated)
+               - properties: \(properties.debugDescription)
+               >
+               """
     }
 }
 
 extension AiMaterial: Equatable {
-    public static func == (lhs: AiMaterial, rhs: AiMaterial) -> Bool {
+    public static func ==(lhs: AiMaterial, rhs: AiMaterial) -> Bool {
         return lhs.numAllocated == rhs.numAllocated &&
-            lhs.numProperties == rhs.numProperties &&
-            lhs.properties == rhs.properties
+                lhs.numProperties == rhs.numProperties &&
+                lhs.properties == rhs.properties
     }
 }
