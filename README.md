@@ -1,3 +1,9 @@
+# My Changed
+
+If using it for android, copy the [prebuild so file](https://github.com/Guang1234567/assimp-prebuild-for-android/blob/prebuild_for_v5.0.1/build/prebuild_v5.0.1_for_android.7z) to android preject's `jniLibs` directory.
+
+
+
 # Swift Assimp
 
 [![Build Status](https://travis-ci.com/ctreffs/SwiftAssimp.svg?branch=master)](https://travis-ci.com/ctreffs/SwiftAssimp)
